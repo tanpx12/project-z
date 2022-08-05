@@ -1,6 +1,6 @@
 [workspace]
 resolver = "2"
 members = [
-    "contracts/cw-juicer",
-    "./packages/juicer",
+    "contracts/cw-zportal",
+    "./packages/zportal",
 ]

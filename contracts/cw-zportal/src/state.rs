@@ -1,8 +1,8 @@
 use cosmwasm_std::Coin;
 use cw_storage_plus::{Item, Map};
 
-use juicer::merkle_tree::MerkleTreeWithHistory;
-use juicer::verifier::Verifier;
+use zportal::merkle_tree::MerkleTreeWithHistory;
+use zportal::verifier::Verifier;
 
 pub const BASE_COIN: Item<Coin> = Item::new("base_coin");
 

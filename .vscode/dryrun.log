@@ -1,0 +1,6 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/home/tanpx/Desktop/zportal'
+make: Leaving directory '/home/tanpx/Desktop/zportal'
+ 
+make: *** No targets specified and no makefile found.  Stop.
+

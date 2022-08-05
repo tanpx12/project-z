@@ -1,4 +1,4 @@
-use juicer::msg::CircomProof;
+use zportal::msg::CircomProof;
 use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
 // use cosmwasm_std::{Addr, Api, Coin, StdResult};

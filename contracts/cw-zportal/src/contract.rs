@@ -12,16 +12,16 @@ use std::str::FromStr;
 
 use cw2::set_contract_version;
 
-use juicer::merkle_tree::MerkleTreeWithHistory;
-use juicer::msg::PublicSignals;
-use juicer::verifier::Verifier;
+use zportal::merkle_tree::MerkleTreeWithHistory;
+use zportal::msg::PublicSignals;
+use zportal::verifier::Verifier;
 
 use crate::error::ContractError;
 use crate::msg::{DepositMsg, ExecuteMsg, InstantiateMsg, IsKnownRootMsg, QueryMsg, WithdrawMsg};
 use crate::state::{BASE_COIN, COMMITMENTS, NULLIFIER_HASHES, VERIFIER};
 
 // version info for migration info
-const CONTRACT_NAME: &str = "crates.io:juno-juicer";
+const CONTRACT_NAME: &str = "crates.io:orai-zportal";
 const CONTRACT_VERSION: &str = env!("CARGO_PKG_VERSION");
 
 #[cfg_attr(not(feature = "library"), entry_point)]
@@ -186,7 +186,7 @@ mod tests {
     use cosmwasm_std::coins;
     use cosmwasm_std::testing::{mock_dependencies, mock_env, mock_info};
 
-    use juicer::msg::Deposit;
+    use zportal::msg::Deposit;
 
     use super::*;
 
@@ -254,9 +254,9 @@ mod tests {
         COMMITMENTS.save(&mut deps.storage, &tree).unwrap();
 
         let msg = ExecuteMsg::Withdraw(WithdrawMsg {
-            proof: juicer::msg::CircomProof::from(
+            proof: zportal::msg::CircomProof::from(
                 r#"
-                {"pi_a":["13899269723484849480002065473374493568327469679987898626585656783152635224196","4644776364206331144208370772102729462540382294894335687634266360911567618285","1"],"pi_b":[["11550199660326834097658136558533988234178757731057308044978347076813572730094","2682881763463105242359875271001109719339722524261167828167916342514182934974"],["95039516498389015079170513998234052571784823209713661742933740886373624805","3428917488231875962754312177544595651247105738928930070869265869601586471119"],["1","0"]],"pi_c":["18932896497737520548726210332000803585517357164811625711564892288268655803594","3898942506810745753991535926637360084087400921771473613166702262820083122159","1"],"protocol":"groth16","curve":"bn128"}
+                {"pi_a":["10629758862435853336945712117365103618272561056222019226240806118776225405212","12094755642641665221239115629983657286997314809894229129628714990758791466153","1"],"pi_b":[["11186157756116738617053057611111849877248438998886057219898994284672755095787","12497766681974579924875671812236126385677528573379010403478863950922377556831"],["9825673020471505445480714951954464271247928778089895856571011843453336870912","1022732429585413494420382850054446238745583774340722512919058267306851086471"],["1","0"]],"pi_c":["5729347437989247454415384578737747309694582158917085398061374511631507193068","3624008422587939009694034717028437650283952293646457543503996693929528088247","1"],"protocol":"groth16","curve":"bn128"}
                 "#.to_string(),
             ),
             root: "7867364560627547019086598689541673085228895175200585554350937642876639323043".to_string(),
@@ -275,7 +275,7 @@ mod tests {
     // fn test_withdraw_20() {
     //     let mut deps = mock_dependencies();
 
-    //     let deposit = Deposit::from_note("juno-juicer-86ca9e972ed3784d9407f431e045be9b3c3c913327b0d3a669edce2ef1399f13578e9a6ae07cd5bc749d41c33b03e876906fb36803508bec87c86ce5b142".to_string());
+    //     let deposit = Deposit::from_note("juno-zportal-86ca9e972ed3784d9407f431e045be9b3c3c913327b0d3a669edce2ef1399f13578e9a6ae07cd5bc749d41c33b03e876906fb36803508bec87c86ce5b142".to_string());
     //     COMMITMENTS
     //         .save(&mut deps.storage, deposit.clone().get_commitment(), &true)
     //         .unwrap();
@@ -298,7 +298,7 @@ mod tests {
     //     assert_eq!(0, res.messages.len());
 
     //     let msg = ExecuteMsg::Withdraw(WithdrawMsg {
-    //         note: "juno-juicer-86ca9e972ed3784d9407f431e045be9b3c3c913327b0d3a669edce2ef1399f13578e9a6ae07cd5bc749d41c33b03e876906fb36803508bec87c86ce5b142".to_string()
+    //         note: "juno-zportal-86ca9e972ed3784d9407f431e045be9b3c3c913327b0d3a669edce2ef1399f13578e9a6ae07cd5bc749d41c33b03e876906fb36803508bec87c86ce5b142".to_string()
     //     });
     //     let info = mock_info(&"Alice".to_string(), &[]);
 
