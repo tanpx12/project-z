@@ -33,7 +33,7 @@ pub mod poseidon {
     use arkworks_setups::Curve;
     use serde::{Deserialize, Serialize};
 
-    use cosmwasm_std::Uint256 as U256;
+    use num256:: Uint256 as U256;
 
     use super::hasher::ArkworksPoseidonHasherBn254;
 
@@ -68,7 +68,7 @@ pub mod poseidon {
         pub fn hash_as_u256(&self, inputs: Vec<[u8; 32]>) -> Result<U256> {
             let res = self.hash(inputs)?;
 
-            Ok(U256::from_le_bytes(res))
+            Ok(U256::from_bytes_le(res))
         }
 
         pub fn hash(&self, inputs: Vec<[u8; 32]>) -> Result<[u8; 32]> {
@@ -111,23 +111,22 @@ pub mod poseidon {
     }
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-    use cosmwasm_std::Uint256 as U256;
+// #[cfg(test)]
+// mod tests {
+//     use super::*;
+//     use num256::Uint256 as U256;
+//     #[test]
+//     fn test_poseidon_01() {
+//         let hasher = Poseidon::new();
 
-    #[test]
-    fn test_poseidon_01() {
-        let hasher = Poseidon::new();
+//         let left = U256::from(1 as u16);
+//         let right = U256::from(2 as u16);
 
-        let left = U256::from(1 as u16);
-        let right = U256::from(2 as u16);
+//         let inputs = vec![left.to_le_bytes(), right.to_le_bytes()];
+//         println!("{:?}", inputs);
 
-        let inputs = vec![left.to_le_bytes(), right.to_le_bytes()];
-        println!("{:?}", inputs);
-
-        let h = hasher.hash(inputs).unwrap();
-        let n = U256::from_le_bytes(h);
-        println!("{:?}", n);
-    }
-}
+//         let h = hasher.hash(inputs).unwrap();
+//         let n = U256::from_le_bytes(h);
+//         println!("{:?}", n);
+//     }
+// }

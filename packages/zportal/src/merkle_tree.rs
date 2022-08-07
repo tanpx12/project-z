@@ -2,8 +2,7 @@
 
 use crate::bignum;
 use crate::poseidon::Poseidon;
-use cosmwasm_std::Uint256 as U256;
-
+use num256::Uint256 as U256;
 use serde::{Deserialize, Serialize};
 
 const ROOT_HISTORY_SIZE: u32 = 100;
@@ -54,8 +53,8 @@ impl MerkleTreeWithHistory {
         // let mut left_bytes: [u8; 32] = [0; 32];
         // let mut right_bytes: [u8; 32] = [0; 32];
 
-        let left_bytes = left.to_le_bytes();
-        let right_bytes = right.to_le_bytes();
+        let left_bytes = left.to_bytes_le();
+        let right_bytes = right.to_bytes_le();
 
         let inputs = vec![left_bytes, right_bytes];
 
@@ -127,7 +126,7 @@ impl MerkleTreeWithHistory {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use cosmwasm_std::Uint256 as U256;
+    use num256::Uint256 as U256;
 
     #[test]
     fn test_merkletree_new() {
@@ -160,17 +159,20 @@ mod tests {
         let root = mt.get_last_root();
         assert_eq!(root, expected);
     }
-
-    // #[test]
-    // fn test_merkletree_insert_single_3() {
-    //     let mut mt = MerkleTreeWithHistory::new(3);
-    //     mt.insert(&U256::one());
-    //     let expected = bignum!(
-    //         "14817887234532324632578486942317778767513333548116388705259454362287888156301"
-    //     );
-    //     let root = mt.get_last_root();
-    //     assert_eq!(root, expected);
-    // }
+    #[test]
+    fn test_merkletree_insert_multiple_20() {
+        let mut mt = MerkleTreeWithHistory::new(20);
+        mt.insert(&bignum!("8850273079593883398639430490039104523500745366713572557523808459068891697533"));
+        mt.insert(&bignum!("4505566991702500767569436957199247977767334375538344523909241352368404707186"));
+        mt.insert(&bignum!("18846374502735732481374714660182160489218405795285859428161164834925787235504"));
+        mt.insert(&bignum!("7663571872474687607374120615427491690351879691905874117160615618661310003533"));
+        
+        let expected = bignum!(
+            "8201423473594519031182550317371517290186813517897396199192691147840940585326"
+        );
+        let root = mt.get_last_root();
+        assert_eq!(root, expected);
+    }
 
     // #[test]
     // fn test_merkletree_insert_single_16() {

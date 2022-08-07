@@ -218,12 +218,6 @@ mod tests {
         let info = mock_info(&"Alice".to_string(), &coins(10, "TKN"));
         let res = execute(deps.as_mut(), mock_env(), info.clone(), msg).unwrap();
         assert_eq!(0, res.messages.len());
-
-        // TODO
-        // let commitment = COMMITMENTS
-        //     .load(&deps.storage, deposit.get_commitment())
-        //     .unwrap();
-        // assert_eq!(Uint128::new(10), commitment);
     }
 
     #[test]

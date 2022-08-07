@@ -27,7 +27,7 @@ pub mod poseidon;
 #[macro_export]
 macro_rules! bignum {
     ($c0: expr) => {{
-        use cosmwasm_std::Uint256 as U256;
+        use num256:: Uint256 as U256;
         use std::str::FromStr;
         U256::from_str($c0).unwrap()
     }};
@@ -35,7 +35,7 @@ macro_rules! bignum {
 
 #[cfg(test)]
 mod tests {
-    use cosmwasm_std::Uint256 as U256;
+    use num256:: Uint256 as U256;
 
     #[test]
     fn test_bignum() {

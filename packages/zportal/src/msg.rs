@@ -10,7 +10,8 @@ use ark_bn254::{Bn254, Fr, G1Affine, G2Affine};
 use ark_ff::{Fp256, QuadExtField};
 use ark_groth16::Proof;
 
-use cosmwasm_std::{Uint128 as U128, Uint256 as U256};
+use cosmwasm_std::{Uint128 as U128};
+use num256:: Uint256 as U256;
 
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
 pub struct PublicSignals(pub Vec<String>);
@@ -58,7 +59,7 @@ impl PublicSignals {
 
         let words: Vec<u8> = payloads.iter().map(|x| x.to_u8()).collect();
         // TODO: take a look at a cleaner way
-        U256::from_be_bytes(words.try_into().unwrap()).to_string()
+        U256::from_bytes_be(words.try_into().unwrap()).to_string()
     }
 }
 
@@ -126,11 +127,11 @@ impl Deposit {
         let right = U256::zero();
 
         let nullifier = U256::from_str(&self.nullifier).unwrap();
-        let inputs = vec![nullifier.to_le_bytes(), right.to_le_bytes()];
+        let inputs = vec![nullifier.to_bytes_le(), right.to_bytes_le()];
 
         let res = poseidon.hash(inputs).unwrap();
 
-        U256::from_le_bytes(res).to_string()
+        U256::from_bytes_le(res).to_string()
     }
 
     pub fn get_nullifier_hash(self, leaf_index: u128) -> String {
@@ -142,14 +143,14 @@ impl Deposit {
         let leaf_i = U256::from(leaf_index);
 
         let inputs = vec![
-            nullifier.to_le_bytes(),
-            secret.to_le_bytes(),
-            leaf_i.to_le_bytes(),
+            nullifier.to_bytes_le(),
+            secret.to_bytes_le(),
+            leaf_i.to_bytes_le(),
         ];
 
         let res = poseidon.hash(inputs).unwrap();
 
-        U256::from_le_bytes(res).to_string()
+        U256::from_bytes_le(res).to_string()
     }
 
     pub fn commitment_as_array(self) -> [u8; 32] {
@@ -192,7 +193,7 @@ fn test_parse_juno_addr() {
         let words: Vec<u8> = payloads.iter().map(|x| x.to_u8()).collect();
         assert_eq!(words.len(), 32);
 
-        let n = U256::from_be_bytes(words.try_into().unwrap());
+        let n = U256::from_bytes_be(words.try_into().unwrap());
         assert_eq!(
             n.to_string(),
             "9526846490934353717899961266123756195211556155320547954451400665347450669575"
@@ -205,7 +206,7 @@ fn test_parse_juno_addr() {
             "9526846490934353717899961266123756195211556155320547954451400665347450669575",
         )
         .unwrap()
-        .to_be_bytes()
+        .to_bytes_be()
         .map(|x| bech32::u5::try_from_u8(x).unwrap())
         .to_vec();
 
