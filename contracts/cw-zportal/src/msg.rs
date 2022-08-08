@@ -2,7 +2,7 @@ use zportal::msg::CircomProof;
 use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
 // use cosmwasm_std::{Addr, Api, Coin, StdResult};
-use cosmwasm_std::Uint128 as U128;
+use cosmwasm_std::{Uint128 as U128, HumanAddr};
 
 #[derive(Serialize, Deserialize, JsonSchema)]
 pub struct InstantiateMsg {
@@ -21,8 +21,8 @@ pub struct WithdrawMsg {
 
     pub root: String,
     pub nullifier_hash: String,
-    pub recipient: String,
-    pub relayer: String,
+    pub recipient: HumanAddr,
+    pub relayer: HumanAddr,
     pub fee: U128,
 }
 

@@ -1,5 +1,5 @@
 use cosmwasm_std::{StdError, Uint128};
-use cw_utils::PaymentError;
+// use cw_utils::PaymentError;
 
 use thiserror::Error;
 
@@ -49,4 +49,22 @@ pub enum ContractError {
 
     #[error("Invalid Proof")]
     InvalidProof {},
+}
+
+#[derive(Error, Debug, PartialEq)]
+pub enum PaymentError {
+    #[error("Must send reserve token '{0}'")]
+    MissingDenom(String),
+
+    #[error("Received unsupported denom '{0}'")]
+    ExtraDenom(String),
+
+    #[error("Sent more than one denomination")]
+    MultipleDenoms {},
+
+    #[error("No funds sent")]
+    NoFunds {},
+
+    #[error("This message does no accept funds")]
+    NonPayable {},
 }

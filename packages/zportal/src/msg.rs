@@ -59,7 +59,7 @@ impl PublicSignals {
 
         let words: Vec<u8> = payloads.iter().map(|x| x.to_u8()).collect();
         // TODO: take a look at a cleaner way
-        U256::from_bytes_be(words.try_into().unwrap()).to_string()
+        U256::from_bytes_be(&words).to_string()
     }
 }
 
@@ -124,15 +124,18 @@ impl Deposit {
     pub fn get_commitment(self) -> String {
         let poseidon = Poseidon::new();
 
-        let right = U256::zero();
+        let right = U256::from_str("0").unwrap();
 
         let nullifier = U256::from_str(&self.nullifier).unwrap();
-        let inputs = vec![nullifier.to_bytes_le(), right.to_bytes_le()];
+
+        let inputs = vec![uint256_to_bytes_le(nullifier), uint256_to_bytes_le(right)];
 
         let res = poseidon.hash(inputs).unwrap();
 
-        U256::from_bytes_le(res).to_string()
+        U256::from_bytes_le(&res).to_string()
     }
+
+    
 
     pub fn get_nullifier_hash(self, leaf_index: u128) -> String {
         let poseidon = Poseidon::new();
@@ -143,14 +146,14 @@ impl Deposit {
         let leaf_i = U256::from(leaf_index);
 
         let inputs = vec![
-            nullifier.to_bytes_le(),
-            secret.to_bytes_le(),
-            leaf_i.to_bytes_le(),
+            uint256_to_bytes_le(nullifier),
+            uint256_to_bytes_le(secret),
+            uint256_to_bytes_le(leaf_i),
         ];
 
         let res = poseidon.hash(inputs).unwrap();
 
-        U256::from_bytes_le(res).to_string()
+        U256::from_bytes_le(&res).to_string()
     }
 
     pub fn commitment_as_array(self) -> [u8; 32] {
@@ -180,6 +183,16 @@ fn test_generate_deposit() {
     )
 }
 
+pub fn uint256_to_bytes_le(x: U256) -> [u8; 32] {
+    let mut ans = [0u8; 32];
+    let vec = x.to_bytes_le();
+    for i in 0..vec.len() {
+        ans[i] = vec[i];
+    }
+
+    return ans
+}
+
 #[test]
 fn test_parse_juno_addr() {
     // 9526846490934353717899961266123756195211556155320547954451400665347450669575
@@ -193,7 +206,7 @@ fn test_parse_juno_addr() {
         let words: Vec<u8> = payloads.iter().map(|x| x.to_u8()).collect();
         assert_eq!(words.len(), 32);
 
-        let n = U256::from_bytes_be(words.try_into().unwrap());
+        let n = U256::from_bytes_be(&words);
         assert_eq!(
             n.to_string(),
             "9526846490934353717899961266123756195211556155320547954451400665347450669575"
@@ -201,18 +214,18 @@ fn test_parse_juno_addr() {
     }
 
     // from U256 to bech32
-    {
-        let data: Vec<bech32::u5> = U256::from_str(
-            "9526846490934353717899961266123756195211556155320547954451400665347450669575",
-        )
-        .unwrap()
-        .to_bytes_be()
-        .map(|x| bech32::u5::try_from_u8(x).unwrap())
-        .to_vec();
+    // {
+    //     let data: Vec<bech32::u5> = U256::from_str(
+    //         "9526846490934353717899961266123756195211556155320547954451400665347450669575",
+    //     )
+    //     .unwrap()
+    //     .to_bytes_be()
+    //     .map(|x| bech32::u5::try_from_u8(x).unwrap())
+    //     .to_vec();
 
-        let addr = bech32::encode("juno", data, bech32::Variant::Bech32).unwrap();
-        println!("addr: {}", addr);
+    //     let addr = bech32::encode("juno", data, bech32::Variant::Bech32).unwrap();
+    //     println!("addr: {}", addr);
 
-        assert_eq!(recipient, addr);
-    }
+    //     assert_eq!(recipient, addr);
+    // }
 }

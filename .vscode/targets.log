@@ -1,6 +1,4 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
-make: *** No rule to make target 'all'.  Stop.
-
 # GNU Make 4.2.1
 # Built for x86_64-pc-linux-gnu
 # Copyright (C) 1988-2016 Free Software Foundation, Inc.
@@ -8,7 +6,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Sun Aug  7 15:56:28 2022
+# Make data base, printed on Mon Aug  8 08:55:11 2022
 
 # Variables
 
@@ -19,8 +17,6 @@ GNUMAKEFLAGS :=
 # automatic
 ?F = $(notdir $?)
 # environment
-PAPERSIZE = letter
-# environment
 DESKTOP_SESSION = ubuntu
 # default
 .SHELLFLAGS := -c
@@ -28,6 +24,8 @@ DESKTOP_SESSION = ubuntu
 XDG_SESSION_CLASS = user
 # environment
 XDG_SESSION_TYPE = x11
+# environment
+NVM_INC = /home/hdt/.nvm/versions/node/v16.14.0/include/node
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
 # environment
@@ -41,7 +39,7 @@ GDMSESSION = ubuntu
 # environment
 XMODIFIERS = @im=ibus
 # makefile
-CURDIR := /home/tanpx/Desktop/zportal
+CURDIR := /home/hdt/Desktop/ptrans/project-z
 # makefile
 SHELL = /bin/sh
 # environment
@@ -49,7 +47,7 @@ VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupp
 # environment
 _ = /usr/share/code/code
 # environment
-JOURNAL_STREAM = 8:49801
+JOURNAL_STREAM = 8:56384
 # environment
 XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
 # makefile
@@ -59,23 +57,25 @@ MAKEFILE_LIST :=
 # environment
 GIO_LAUNCHED_DESKTOP_FILE = /usr/share/applications/code.desktop
 # environment
-USERNAME = tanpx
+USERNAME = hdt
 # environment
 MAKELEVEL := 0
+# environment
+MANDATORY_PATH = /usr/share/gconf/ubuntu.mandatory.path
 # environment
 XDG_DATA_DIRS = /usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop
 # environment
 DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus
 # environment
-MANAGERPID = 2929
+MANAGERPID = 1968
 # environment
-LC_NAME = en_US.UTF-8
+LC_NAME = vi_VN
 # environment
-VSCODE_CWD = /home/tanpx
+VSCODE_CWD = /home/hdt
 # default
 MAKE_HOST := x86_64-pc-linux-gnu
 # environment
-PATH = /usr/local/bin/docker-compose:/home/tanpx/Desktop/zkutil/target/release:/home/tanpx/Desktop/go/bin:/home/tanpx/Desktop/node-v16.13.0-linux-x64/bin:/home/tanpx/.cargo/bin:/home/tanpx/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+PATH = /usr/local/go/bin:/home/hdt/bin:/home/hdt/.nvm/versions/node/v16.14.0/bin:/home/hdt/.cargo/bin:/home/hdt/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/hdt/.local/share/JetBrains/Toolbox/scripts:/home/hdt/.zokrates/bin
 # environment
 GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
 # environment
@@ -83,15 +83,17 @@ GJS_DEBUG_OUTPUT = stderr
 # environment
 LSCOLORS = Gxfxcxdxbxegedabagacad
 # environment
-SESSION_MANAGER = local/tanpx-ROG-Strix-G531GT-G531GT:@/tmp/.ICE-unix/3151,unix/tanpx-ROG-Strix-G531GT-G531GT:/tmp/.ICE-unix/3151
+SESSION_MANAGER = local/hdt:@/tmp/.ICE-unix/2236,unix/hdt:/tmp/.ICE-unix/2236
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
+# environment
+NVM_BIN = /home/hdt/.nvm/versions/node/v16.14.0/bin
 # environment
 XDG_MENU_PREFIX = gnome-
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-INVOCATION_ID = 03d3d16062f54c5ca029dd38fa574379
+INVOCATION_ID = 430a61a60a4b48b0959aa2cec9ee3204
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
@@ -101,17 +103,17 @@ XDG_SESSION_DESKTOP = ubuntu
 # environment
 SSH_AUTH_SOCK = /run/user/1000/keyring/ssh
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 15530
+GIO_LAUNCHED_DESKTOP_FILE_PID = 6713
 # automatic
 %F = $(notdir $%)
 # environment
 DISPLAY = :0
 # environment
-PWD = /home/tanpx/Desktop/zportal
+PWD = /home/hdt/Desktop/ptrans/project-z
 # default
 .LOADED := 
 # environment
-SSH_AGENT_PID = 3113
+SSH_AGENT_PID = 2161
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
 # environment
@@ -119,17 +121,19 @@ GTK_MODULES = gail:atk-bridge
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
-HOME = /home/tanpx
+HOME = /home/hdt
 # environment
-VSCODE_CODE_CACHE_PATH = /home/tanpx/.config/Code/CachedData/3b889b090b5ad5793f524b5d1d39fda662b96a2a
+VSCODE_CODE_CACHE_PATH = /home/hdt/.config/Code/CachedData/da76f93349a72022ca4670c1b84860304616aaa2
 # environment
-LOGNAME = tanpx
+LOGNAME = hdt
 # environment
 APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
+# environment
+NVM_CD_FLAGS = -q
 # automatic
 +F = $(notdir $+)
 # environment
-ZSH = /home/tanpx/.oh-my-zsh
+ZSH = /home/hdt/.oh-my-zsh
 # environment
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # environment
@@ -137,7 +141,7 @@ GNOME_DESKTOP_SESSION_ID = this-is-deprecated
 # automatic
 ^D = $(patsubst %/,%,$(dir $^))
 # environment
-LC_TIME = en_US.UTF-8
+LC_TIME = vi_VN
 # default
 MAKE = $(MAKE_COMMAND)
 # default
@@ -151,9 +155,9 @@ GNOME_SHELL_SESSION_MODE = ubuntu
 # default
 MAKE_VERSION := 4.2.1
 # environment
-USER = tanpx
+USER = hdt
 # environment
-LC_MONETARY = en_US.UTF-8
+LC_MONETARY = vi_VN
 # makefile
 .DEFAULT_GOAL := 
 # environment
@@ -163,43 +167,49 @@ LESS = -R
 # automatic
 %D = $(patsubst %/,%,$(dir $%))
 # environment
-LC_TELEPHONE = en_US.UTF-8
+LC_TELEPHONE = vi_VN
 # default
 MAKE_COMMAND := make
 # environment
-OLDPWD = /home/tanpx
+OLDPWD = /home/hdt
 # default
 .VARIABLES := 
 # automatic
 *F = $(notdir $*)
 # environment
-VSCODE_IPC_HOOK = /run/user/1000/vscode-fc565ec4-1.69.2-main.sock
+VSCODE_IPC_HOOK = /run/user/1000/vscode-2d740193-1.70.0-main.sock
 # makefile
 MAKEFLAGS = pqrR
 # environment
 MFLAGS = -pqrR
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
+# environment
+NVM_DIR = /home/hdt/.nvm
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
 # environment
 GDK_BACKEND = x11
 # environment
-LC_PAPER = en_US.UTF-8
+LC_PAPER = vi_VN
 # environment
 QT_ACCESSIBILITY = 1
+# environment
+DEFAULTS_PATH = /usr/share/gconf/ubuntu.default.path
 # default
 MAKEFILES := 
 # environment
-LC_NUMERIC = en_US.UTF-8
+LC_NUMERIC = vi_VN
 # automatic
 <F = $(notdir $<)
 # environment
-LC_MEASUREMENT = en_US.UTF-8
+LC_MEASUREMENT = vi_VN
 # environment
 PAGER = less
 # environment
 LC_ALL = C
+# environment
+ZOKRATES_HOME = /home/hdt/.zokrates/stdlib
 # environment
 GJS_DEBUG_TOPICS = JS ERROR;JS LOG
 # automatic
@@ -213,17 +223,17 @@ WINDOWPATH = 2
 # default
 .INCLUDE_DIRS = /usr/include /usr/local/include /usr/include
 # environment
-LC_IDENTIFICATION = en_US.UTF-8
+LC_IDENTIFICATION = vi_VN
 # default
 .RECIPEPREFIX := 
 # environment
-LC_ADDRESS = en_US.UTF-8
+LC_ADDRESS = vi_VN
 # environment
 LANG = C
 # environment
-VSCODE_PID = 15530
+VSCODE_PID = 6713
 # variable set hash-table stats:
-# Load=105/1024=10%, Rehash=0, Collisions=17/127=13%
+# Load=111/1024=11%, Rehash=0, Collisions=17/133=13%
 
 # Pattern-specific Variable Values
 
@@ -231,9 +241,9 @@ VSCODE_PID = 15530
 
 # Directories
 
-# . (device 66310, inode 4868803): 16 files, no impossibilities.
+# . (device 66309, inode 2393136): 14 files, no impossibilities.
 
-# 16 files, no impossibilities in 1 directories.
+# 14 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -276,21 +286,22 @@ GNUmakefile:
 #  Failed to be updated.
 
 # files hash-table stats:
+ 
+make: *** No rule to make target 'all'.  Stop.
+
 # Load=6/1024=1%, Rehash=0, Collisions=0/15=0%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
- 
 
-# strcache buffers: 1 (0) / strings = 24 / storage = 226 B / avg = 9 B
-# current buf: size = 8162 B / used = 226 B / count = 24 / avg = 9 B
- 
+# strcache buffers: 1 (0) / strings = 22 / storage = 208 B / avg = 9 B
+# current buf: size = 8162 B / used = 208 B / count = 22 / avg = 9 B
 
-# strcache performance: lookups = 27 / hit rate = 11%
+# strcache performance: lookups = 25 / hit rate = 12%
 # hash-table stats:
-# Load=24/8192=0%, Rehash=0, Collisions=1/27=4%
-# Finished Make data base on Sun Aug  7 15:56:28 2022
+# Load=22/8192=0%, Rehash=0, Collisions=1/25=4%
+# Finished Make data base on Mon Aug  8 08:55:11 2022
 
  

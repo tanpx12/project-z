@@ -68,7 +68,7 @@ pub mod poseidon {
         pub fn hash_as_u256(&self, inputs: Vec<[u8; 32]>) -> Result<U256> {
             let res = self.hash(inputs)?;
 
-            Ok(U256::from_bytes_le(res))
+            Ok(U256::from_bytes_le(&res))
         }
 
         pub fn hash(&self, inputs: Vec<[u8; 32]>) -> Result<[u8; 32]> {

@@ -1,5 +1,7 @@
 #![allow(non_snake_case)]
 
+use std::str::FromStr;
+
 use crate::bignum;
 use crate::poseidon::Poseidon;
 use num256::Uint256 as U256;
@@ -30,7 +32,7 @@ impl MerkleTreeWithHistory {
         );
 
         this.levels = levels;
-        this.roots = vec![U256::zero(); ROOT_HISTORY_SIZE as usize];
+        this.roots = vec![U256::from_str("0").unwrap(); ROOT_HISTORY_SIZE as usize];
 
         this.ZERO_VALUE = ZERO_VALUE.clone();
 
@@ -53,10 +55,10 @@ impl MerkleTreeWithHistory {
         // let mut left_bytes: [u8; 32] = [0; 32];
         // let mut right_bytes: [u8; 32] = [0; 32];
 
-        let left_bytes = left.to_bytes_le();
-        let right_bytes = right.to_bytes_le();
+        // let left_bytes = left.to_bytes_le();
+        // let right_bytes = right.to_bytes_le();
 
-        let inputs = vec![left_bytes, right_bytes];
+        let inputs = vec![uint256_to_bytes_le(left.clone()), uint256_to_bytes_le(right.clone())];
 
         poseidon.hash_as_u256(inputs).unwrap()
     }
@@ -69,7 +71,7 @@ impl MerkleTreeWithHistory {
         }
 
         self.next_index += 1;
-        let mut current_level_hash: U256 = *leaf;
+        let mut current_level_hash: U256 = leaf.clone();
         let mut left: &U256;
         let mut right: &U256;
 
@@ -95,7 +97,7 @@ impl MerkleTreeWithHistory {
     }
 
     pub fn is_known_root(&self, root: &U256) -> bool {
-        if root == &U256::zero() {
+        if root == &U256::from_str("0").unwrap() {
             return false;
         }
         let mut i = self.current_root_index;
@@ -123,6 +125,15 @@ impl MerkleTreeWithHistory {
     }
 }
 
+pub fn uint256_to_bytes_le(x: U256) -> [u8; 32] {
+    let mut ans = [0u8; 32];
+    let vec = x.to_bytes_le();
+    for i in 0..vec.len() {
+        ans[i] = vec[i];
+    }
+
+    return ans
+}
 #[cfg(test)]
 mod tests {
     use super::*;
