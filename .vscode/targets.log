@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Sun Aug  7 15:56:28 2022
+# Make data base, printed on Mon Aug  8 10:43:01 2022
 
 # Variables
 
@@ -49,7 +49,7 @@ VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupp
 # environment
 _ = /usr/share/code/code
 # environment
-JOURNAL_STREAM = 8:49801
+JOURNAL_STREAM = 8:48357
 # environment
 XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
 # makefile
@@ -67,7 +67,7 @@ XDG_DATA_DIRS = /usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/d
 # environment
 DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus
 # environment
-MANAGERPID = 2929
+MANAGERPID = 2900
 # environment
 LC_NAME = en_US.UTF-8
 # environment
@@ -83,7 +83,7 @@ GJS_DEBUG_OUTPUT = stderr
 # environment
 LSCOLORS = Gxfxcxdxbxegedabagacad
 # environment
-SESSION_MANAGER = local/tanpx-ROG-Strix-G531GT-G531GT:@/tmp/.ICE-unix/3151,unix/tanpx-ROG-Strix-G531GT-G531GT:/tmp/.ICE-unix/3151
+SESSION_MANAGER = local/tanpx-ROG-Strix-G531GT-G531GT:@/tmp/.ICE-unix/3141,unix/tanpx-ROG-Strix-G531GT-G531GT:/tmp/.ICE-unix/3141
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # environment
@@ -91,7 +91,7 @@ XDG_MENU_PREFIX = gnome-
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-INVOCATION_ID = 03d3d16062f54c5ca029dd38fa574379
+INVOCATION_ID = b481702b35b94936883873f507368f87
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
@@ -101,7 +101,7 @@ XDG_SESSION_DESKTOP = ubuntu
 # environment
 SSH_AUTH_SOCK = /run/user/1000/keyring/ssh
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 15530
+GIO_LAUNCHED_DESKTOP_FILE_PID = 37059
 # automatic
 %F = $(notdir $%)
 # environment
@@ -111,7 +111,7 @@ PWD = /home/tanpx/Desktop/zportal
 # default
 .LOADED := 
 # environment
-SSH_AGENT_PID = 3113
+SSH_AGENT_PID = 3103
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
 # environment
@@ -221,7 +221,7 @@ LC_ADDRESS = en_US.UTF-8
 # environment
 LANG = C
 # environment
-VSCODE_PID = 15530
+VSCODE_PID = 37059
 # variable set hash-table stats:
 # Load=105/1024=10%, Rehash=0, Collisions=17/127=13%
 
@@ -282,15 +282,14 @@ GNUmakefile:
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
- 
 
 # strcache buffers: 1 (0) / strings = 24 / storage = 226 B / avg = 9 B
 # current buf: size = 8162 B / used = 226 B / count = 24 / avg = 9 B
- 
 
 # strcache performance: lookups = 27 / hit rate = 11%
 # hash-table stats:
+ 
 # Load=24/8192=0%, Rehash=0, Collisions=1/27=4%
-# Finished Make data base on Sun Aug  7 15:56:28 2022
+# Finished Make data base on Mon Aug  8 10:43:01 2022
 
  

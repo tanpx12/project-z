@@ -1,11 +1,19 @@
 #![allow(non_snake_case)]
 
+use std::convert::TryInto;
+
 use crate::bignum;
 use crate::poseidon::Poseidon;
 use num256::Uint256 as U256;
 use serde::{Deserialize, Serialize};
 
 const ROOT_HISTORY_SIZE: u32 = 100;
+
+fn convert<T, const N: usize>(v :Vec<T>) -> [T;N] {
+    v.try_into().unwrap_or_else(|v: Vec<T>| panic!("Unexpected vec length"))
+}
+
+
 
 #[derive(Default, Serialize, Deserialize, Clone, Debug, PartialEq)]
 pub struct MerkleTreeWithHistory {
@@ -53,10 +61,10 @@ impl MerkleTreeWithHistory {
         // let mut left_bytes: [u8; 32] = [0; 32];
         // let mut right_bytes: [u8; 32] = [0; 32];
 
-        let left_bytes = left.to_bytes_le();
-        let right_bytes = right.to_bytes_le();
+        let left_bytes = convert::<_,32>(left.to_bytes_le());
+        let right_bytes = convert::<_,32>(right.to_bytes_le());
 
-        let inputs = vec![left_bytes, right_bytes];
+        let inputs =vec![left_bytes, right_bytes];
 
         poseidon.hash_as_u256(inputs).unwrap()
     }

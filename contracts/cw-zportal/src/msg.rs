@@ -3,6 +3,7 @@ use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
 // use cosmwasm_std::{Addr, Api, Coin, StdResult};
 use cosmwasm_std::Uint128 as U128;
+// use num256::Uint256 as U256;
 
 #[derive(Serialize, Deserialize, JsonSchema)]
 pub struct InstantiateMsg {

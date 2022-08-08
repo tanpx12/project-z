@@ -3,8 +3,9 @@ use cosmwasm_std::entry_point;
 
 use cosmwasm_std::{
     to_binary, BankMsg, Binary, Coin, Deps, DepsMut, Env, MessageInfo, Response, StdResult,
-    Uint128 as U128, Uint256 as U256,
+    Uint128 as U128
 };
+use num256::Uint256 as U256;
 
 use cw_utils::must_pay;
 
