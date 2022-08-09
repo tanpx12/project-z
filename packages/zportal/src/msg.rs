@@ -71,8 +71,6 @@ pub struct CircomProof {
     pub pi_b: Vec<Vec<String>>,
     #[serde(rename = "pi_c")]
     pub pi_c: Vec<String>,
-    pub protocol: String,
-    pub curve: String,
 }
 
 impl CircomProof {

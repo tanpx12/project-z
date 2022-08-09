@@ -34,16 +34,11 @@
     "CircomProof": {
       "type": "object",
       "required": [
-        "curve",
         "pi_a",
         "pi_b",
-        "pi_c",
-        "protocol"
+        "pi_c"
       ],
       "properties": {
-        "curve": {
-          "type": "string"
-        },
         "pi_a": {
           "type": "array",
           "items": {
@@ -64,9 +59,6 @@
           "items": {
             "type": "string"
           }
-        },
-        "protocol": {
-          "type": "string"
         }
       }
     },

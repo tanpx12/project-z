@@ -1,16 +1,22 @@
-use std::str::FromStr;
-
-use ark_bn254::{Bn254, Fq, Fq2, Fr, G1Affine, G1Projective, G2Affine, G2Projective};
-use ark_ff::{Fp256, QuadExtField};
 use ark_groth16::{prepare_verifying_key, verify_proof, Proof, VerifyingKey};
 use serde::{Deserialize, Serialize};
+
+use ark_bn254::{Bn254, Fq, Fq2, Fr, G1Affine, G1Projective, G2Affine, G2Projective};
+use schemars::JsonSchema;
+use std::str::FromStr;
 
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct Verifier {
     vk_json: String,
 }
+
 impl Verifier {
     pub fn new(vk_json: String) -> Self {
+        // let vk_json = include_str!("../../../circuits/build/verification_key.json");
+
+        // Self {
+        //     vk_json: vk_json.to_string(),
+        // }
         Self { vk_json }
     }
 
@@ -23,16 +29,23 @@ impl Verifier {
         verify_proof(&pvk, &proof, &inputs).unwrap()
     }
 }
-#[derive(Serialize, Deserialize, Clone, PartialEq, Debug)]
+
+#[derive(Serialize, Deserialize, Clone, PartialEq, JsonSchema, Debug)]
 pub struct VerifyingKeyJson {
     #[serde(rename = "IC")]
     pub ic: Vec<Vec<String>>,
+
+    // #[serde(rename = "nPublic")]
+    // pub inputs_count: u32,
     pub vk_alpha_1: Vec<String>,
     pub vk_beta_2: Vec<Vec<String>>,
     pub vk_gamma_2: Vec<Vec<String>>,
     pub vk_delta_2: Vec<Vec<String>>,
     pub vk_alphabeta_12: Vec<Vec<Vec<String>>>,
+    // pub curve: String,
+    // pub protocol: String,
 }
+
 impl VerifyingKeyJson {
     pub fn to_verifying_key(self) -> VerifyingKey<Bn254> {
         let alpha_g1 = G1Affine::from(G1Projective::new(
@@ -120,77 +133,16 @@ pub fn str_to_fq(s: &str) -> Fq {
     Fq::from_str(s).unwrap()
 }
 
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-pub struct CircomProof {
-    #[serde(rename = "pi_a")]
-    pub pi_a: Vec<String>,
-    #[serde(rename = "pi_b")]
-    pub pi_b: Vec<Vec<String>>,
-    #[serde(rename = "pi_c")]
-    pub pi_c: Vec<String>,
-}
-
-impl CircomProof {
-    pub fn from(json_str: String) -> Self {
-        serde_json::from_str(&json_str).unwrap()
-    }
-
-    pub fn to_proof(self) -> Proof<Bn254> {
-        let a = G1Affine::new(
-            Fp256::from_str(&self.pi_a[0]).unwrap(),
-            Fp256::from_str(&self.pi_a[1]).unwrap(),
-            false,
-        );
-        let b = G2Affine::new(
-            QuadExtField::new(
-                Fp256::from_str(&self.pi_b[0][0]).unwrap(),
-                Fp256::from_str(&self.pi_b[0][1]).unwrap(),
-            ),
-            QuadExtField::new(
-                Fp256::from_str(&self.pi_b[1][0]).unwrap(),
-                Fp256::from_str(&self.pi_b[1][1]).unwrap(),
-            ),
-            false,
-        );
-
-        let c = G1Affine::new(
-            Fp256::from_str(&self.pi_c[0]).unwrap(),
-            Fp256::from_str(&self.pi_c[1]).unwrap(),
-            false,
-        );
-        Proof { a, b, c }
-    }
-}
-
-#[derive(Serialize, Deserialize, Clone, Debug, PartialEq)]
-pub struct PublicSignals(pub Vec<String>);
-
-impl PublicSignals {
-    pub fn from(public_signals: Vec<String>) -> Self {
-        PublicSignals(public_signals)
-    }
-
-    pub fn from_json(public_signals_json: String) -> Self {
-        let v: Vec<String> = serde_json::from_str(&public_signals_json).unwrap();
-        PublicSignals(v)
-    }
-
-    pub fn get(self) -> Vec<Fr> {
-        let mut inputs: Vec<Fr> = Vec::new();
-        for input in self.0 {
-            inputs.push(Fr::from_str(&input).unwrap());
-        }
-        inputs
-    }
-}
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::msg::{CircomProof, PublicSignals};
+
 
     #[test]
     fn test_verifier_ptrans() {
-        let v = Verifier::new(
-            r#"
+      let v = Verifier::new(
+        r#"
       {
           "IC": [
             [
@@ -342,43 +294,41 @@ mod tests {
         }
       "#
             .to_string(),
-        );
-        let proof = CircomProof::from(r#"
+    );
+    let proof = CircomProof::from(r#"
       {
-          "protocol": "groth",
-          "proof": "15c1e1694c6b7ea9efccda1e12f0c9cb560309239e4665fa1f4b1fdbdb764d1a840f3f6cc1a29a65311bec959c969f8f465f6703ad36a6ddfe8459d1d92c7c043df85091451835da03a48fdc4ed8afa4da0ac30ca38830dc92763b342161f90bfdabb741eda90950898efab57fe5867fd19a4247d26786a38d3c5ac8e1509f06107df1576fac05dd011efadfac26dadf0dffabe4b5c57a23582c38328652fb2698df4d4e61cf7bcc89b2127ee1264b250303d68038230d1a4d6fd12ffe94591d977e49698ca96a4214e1fefec99b6dac4fcb46e5487ea75c91c7912374069a",
-          "pi_a": [
-    "4588365436250289391755604207342267941446007419656212063649919918508172125195",
-    "21060376463470030457578304649868259516283397496007720456241912787767471874766",
-    "1"
-  ],
-  "pi_b": [
-    [
-      "8984932834431186885081739018602787205251764389622276378840584911253378292655",
-      "13915347205867510139954212073616170215113174233909583119308631440705727956323"
-    ],
-    [
-      "17106800871295249206033558077328296732761085655066319251101842033327705950077",
-      "1676331377654999312066417811176540866598618209881449932289255596958569240706"
-    ],
-    [
-      "1",
-      "0"
-    ]
-  ],
-  "pi_c": [
-    "18080940349090461470390972095840262712653352551251311862413340259660020943585",
-    "15552884864869620474420000381273365683624440806782082649431275219577871150965",
-    "1"
-  ]
-        }
-      "#.to_string())
-          .to_proof();
-        let public_signals = PublicSignals::from_json(r#"
-        ["20388266962477619280955594249251406720204293349834576016913359427421275505103", "1339890304044742027429010851739224546875848706266241438396166916283259958606", "7254881883587024613198462950057173092645512092889456782445282935191059110173", "7254881883587024613198462950057173092645512092889456782445282935191059110173", "0"]
-      "#.to_string());
-        let res = v.verify_proof(proof, &public_signals.get());
-        println!("res: {}", res);
-        assert!(res);
-    }
+        "protocol": "groth",
+        "proof": "15c1e1694c6b7ea9efccda1e12f0c9cb560309239e4665fa1f4b1fdbdb764d1a840f3f6cc1a29a65311bec959c969f8f465f6703ad36a6ddfe8459d1d92c7c043df85091451835da03a48fdc4ed8afa4da0ac30ca38830dc92763b342161f90bfdabb741eda90950898efab57fe5867fd19a4247d26786a38d3c5ac8e1509f06107df1576fac05dd011efadfac26dadf0dffabe4b5c57a23582c38328652fb2698df4d4e61cf7bcc89b2127ee1264b250303d68038230d1a4d6fd12ffe94591d977e49698ca96a4214e1fefec99b6dac4fcb46e5487ea75c91c7912374069a",
+        "pi_a": [
+          "4588365436250289391755604207342267941446007419656212063649919918508172125195",
+          "21060376463470030457578304649868259516283397496007720456241912787767471874766",
+          "1"
+          ],
+        "pi_b": [
+          [
+            "8984932834431186885081739018602787205251764389622276378840584911253378292655",
+            "13915347205867510139954212073616170215113174233909583119308631440705727956323"
+          ],
+          [
+            "17106800871295249206033558077328296732761085655066319251101842033327705950077",
+            "1676331377654999312066417811176540866598618209881449932289255596958569240706"
+          ],
+          [
+            "1",
+            "0"
+          ]
+        ],
+        "pi_c": [
+          "18080940349090461470390972095840262712653352551251311862413340259660020943585",
+          "15552884864869620474420000381273365683624440806782082649431275219577871150965",
+          "1"]
+        }"#.to_string())
+        .to_proof();
+    let public_signals = PublicSignals::from_json(r#"
+    ["20388266962477619280955594249251406720204293349834576016913359427421275505103", "1339890304044742027429010851739224546875848706266241438396166916283259958606", "7254881883587024613198462950057173092645512092889456782445282935191059110173", "7254881883587024613198462950057173092645512092889456782445282935191059110173", "0"]"#.to_string());
+    let res = v.verify_proof(proof, &public_signals.get());
+    println!("res: {}", res);
+    assert!(res);
+
+  }
 }
