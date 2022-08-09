@@ -33,7 +33,7 @@ pub mod poseidon {
     use arkworks_setups::Curve;
     use serde::{Deserialize, Serialize};
 
-    use num256:: Uint256 as U256;
+    use bignumber::Uint256 as U256;
 
     use super::hasher::ArkworksPoseidonHasherBn254;
 
@@ -68,7 +68,7 @@ pub mod poseidon {
         pub fn hash_as_u256(&self, inputs: Vec<[u8; 32]>) -> Result<U256> {
             let res = self.hash(inputs)?;
 
-            Ok(U256::from_bytes_le(&res))
+            Ok(U256::from_le_bytes(res))
         }
 
         pub fn hash(&self, inputs: Vec<[u8; 32]>) -> Result<[u8; 32]> {

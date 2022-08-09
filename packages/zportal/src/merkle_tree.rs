@@ -4,7 +4,7 @@ use std::str::FromStr;
 
 use crate::bignum;
 use crate::poseidon::Poseidon;
-use num256::Uint256 as U256;
+use bignumber::Uint256 as U256;
 use serde::{Deserialize, Serialize};
 
 const ROOT_HISTORY_SIZE: u32 = 100;
@@ -32,7 +32,7 @@ impl MerkleTreeWithHistory {
         );
 
         this.levels = levels;
-        this.roots = vec![U256::from_str("0").unwrap(); ROOT_HISTORY_SIZE as usize];
+        this.roots = vec![U256::zero(); ROOT_HISTORY_SIZE as usize];
 
         this.ZERO_VALUE = ZERO_VALUE.clone();
 
@@ -97,7 +97,7 @@ impl MerkleTreeWithHistory {
     }
 
     pub fn is_known_root(&self, root: &U256) -> bool {
-        if root == &U256::from_str("0").unwrap() {
+        if root == &U256::zero() {
             return false;
         }
         let mut i = self.current_root_index;
@@ -127,7 +127,7 @@ impl MerkleTreeWithHistory {
 
 pub fn uint256_to_bytes_le(x: U256) -> [u8; 32] {
     let mut ans = [0u8; 32];
-    let vec = x.to_bytes_le();
+    let vec = x.to_le_bytes();
     for i in 0..vec.len() {
         ans[i] = vec[i];
     }
@@ -137,7 +137,7 @@ pub fn uint256_to_bytes_le(x: U256) -> [u8; 32] {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use num256::Uint256 as U256;
+    use bignumber::Uint256 as U256;
 
     #[test]
     fn test_merkletree_new() {
@@ -163,7 +163,7 @@ mod tests {
     #[test]
     fn test_merkletree_insert_single_01() {
         let mut mt = MerkleTreeWithHistory::new(20);
-        mt.insert(&U256::from(42 as u32));
+        mt.insert(&U256::from(42 as u64));
         let expected = bignum!(
             "13801027358871474054350913888493740197706640469969388660938924863508695867545"
         );

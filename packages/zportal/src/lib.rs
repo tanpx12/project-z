@@ -27,7 +27,7 @@ pub mod poseidon;
 #[macro_export]
 macro_rules! bignum {
     ($c0: expr) => {{
-        use num256:: Uint256 as U256;
+        use bignumber:: Uint256 as U256;
         use std::str::FromStr;
         U256::from_str($c0).unwrap()
     }};
@@ -35,12 +35,12 @@ macro_rules! bignum {
 
 #[cfg(test)]
 mod tests {
-    use num256:: Uint256 as U256;
+    use bignumber:: Uint256 as U256;
 
     #[test]
     fn test_bignum() {
-        assert_eq!(U256::from(5 as u16), bignum!("5"));
-        assert_ne!(U256::from(6 as u16), bignum!("5"));
+        assert_eq!(U256::from(5 as u64), bignum!("5"));
+        assert_ne!(U256::from(6 as u64), bignum!("5"));
 
         let n = "21888242871839275222246405745257275088548364400416034343698204186575808495617";
 

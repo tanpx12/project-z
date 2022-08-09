@@ -1,4 +1,6 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+make: *** No rule to make target 'all'.  Stop.
+
 # GNU Make 4.2.1
 # Built for x86_64-pc-linux-gnu
 # Copyright (C) 1988-2016 Free Software Foundation, Inc.
@@ -6,7 +8,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Mon Aug  8 08:55:11 2022
+# Make data base, printed on Tue Aug  9 08:45:08 2022
 
 # Variables
 
@@ -47,7 +49,7 @@ VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupp
 # environment
 _ = /usr/share/code/code
 # environment
-JOURNAL_STREAM = 8:56384
+JOURNAL_STREAM = 8:47796
 # environment
 XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
 # makefile
@@ -67,7 +69,7 @@ XDG_DATA_DIRS = /usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/d
 # environment
 DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus
 # environment
-MANAGERPID = 1968
+MANAGERPID = 2017
 # environment
 LC_NAME = vi_VN
 # environment
@@ -83,7 +85,7 @@ GJS_DEBUG_OUTPUT = stderr
 # environment
 LSCOLORS = Gxfxcxdxbxegedabagacad
 # environment
-SESSION_MANAGER = local/hdt:@/tmp/.ICE-unix/2236,unix/hdt:/tmp/.ICE-unix/2236
+SESSION_MANAGER = local/hdt:@/tmp/.ICE-unix/2286,unix/hdt:/tmp/.ICE-unix/2286
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # environment
@@ -93,7 +95,7 @@ XDG_MENU_PREFIX = gnome-
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-INVOCATION_ID = 430a61a60a4b48b0959aa2cec9ee3204
+INVOCATION_ID = 7990424c2f094b9ba69c83a1cd044076
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
@@ -103,7 +105,7 @@ XDG_SESSION_DESKTOP = ubuntu
 # environment
 SSH_AUTH_SOCK = /run/user/1000/keyring/ssh
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 6713
+GIO_LAUNCHED_DESKTOP_FILE_PID = 4136
 # automatic
 %F = $(notdir $%)
 # environment
@@ -113,7 +115,7 @@ PWD = /home/hdt/Desktop/ptrans/project-z
 # default
 .LOADED := 
 # environment
-SSH_AGENT_PID = 2161
+SSH_AGENT_PID = 2212
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
 # environment
@@ -231,7 +233,7 @@ LC_ADDRESS = vi_VN
 # environment
 LANG = C
 # environment
-VSCODE_PID = 6713
+VSCODE_PID = 4136
 # variable set hash-table stats:
 # Load=111/1024=11%, Rehash=0, Collisions=17/133=13%
 
@@ -241,9 +243,9 @@ VSCODE_PID = 6713
 
 # Directories
 
-# . (device 66309, inode 2393136): 14 files, no impossibilities.
+# . (device 66309, inode 2393136): 18 files, no impossibilities.
 
-# 14 files, no impossibilities in 1 directories.
+# 18 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -286,9 +288,6 @@ GNUmakefile:
 #  Failed to be updated.
 
 # files hash-table stats:
- 
-make: *** No rule to make target 'all'.  Stop.
-
 # Load=6/1024=1%, Rehash=0, Collisions=0/15=0%
 # VPATH Search Paths
 
@@ -296,12 +295,13 @@ make: *** No rule to make target 'all'.  Stop.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 22 / storage = 208 B / avg = 9 B
-# current buf: size = 8162 B / used = 208 B / count = 22 / avg = 9 B
+ 
+# strcache buffers: 1 (0) / strings = 26 / storage = 243 B / avg = 9 B
+# current buf: size = 8162 B / used = 243 B / count = 26 / avg = 9 B
 
-# strcache performance: lookups = 25 / hit rate = 12%
+# strcache performance: lookups = 29 / hit rate = 10%
 # hash-table stats:
-# Load=22/8192=0%, Rehash=0, Collisions=1/25=4%
-# Finished Make data base on Mon Aug  8 08:55:11 2022
+# Load=26/8192=0%, Rehash=0, Collisions=1/29=3%
+# Finished Make data base on Tue Aug  9 08:45:08 2022
 
  

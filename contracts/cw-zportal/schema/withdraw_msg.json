@@ -1,5 +1,80 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "WithdrawMsg",
-  "type": "object"
+  "type": "object",
+  "required": [
+    "fee",
+    "nullifier_hash",
+    "proof",
+    "recipient",
+    "relayer",
+    "root"
+  ],
+  "properties": {
+    "fee": {
+      "$ref": "#/definitions/Uint128"
+    },
+    "nullifier_hash": {
+      "type": "string"
+    },
+    "proof": {
+      "$ref": "#/definitions/CircomProof"
+    },
+    "recipient": {
+      "$ref": "#/definitions/HumanAddr"
+    },
+    "relayer": {
+      "$ref": "#/definitions/HumanAddr"
+    },
+    "root": {
+      "type": "string"
+    }
+  },
+  "definitions": {
+    "CircomProof": {
+      "type": "object",
+      "required": [
+        "curve",
+        "pi_a",
+        "pi_b",
+        "pi_c",
+        "protocol"
+      ],
+      "properties": {
+        "curve": {
+          "type": "string"
+        },
+        "pi_a": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "pi_b": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "pi_c": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "protocol": {
+          "type": "string"
+        }
+      }
+    },
+    "HumanAddr": {
+      "type": "string"
+    },
+    "Uint128": {
+      "type": "string"
+    }
+  }
 }

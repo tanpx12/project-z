@@ -1,7 +1,6 @@
 use crate::poseidon::Poseidon;
 
-use std::convert::TryInto;
-use std::str::FromStr;
+use std::{str::FromStr, convert::TryInto};
 
 use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
@@ -11,7 +10,7 @@ use ark_ff::{Fp256, QuadExtField};
 use ark_groth16::Proof;
 
 use cosmwasm_std::{Uint128 as U128};
-use num256:: Uint256 as U256;
+use bignumber:: Uint256 as U256;
 
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
 pub struct PublicSignals(pub Vec<String>);
@@ -59,7 +58,7 @@ impl PublicSignals {
 
         let words: Vec<u8> = payloads.iter().map(|x| x.to_u8()).collect();
         // TODO: take a look at a cleaner way
-        U256::from_bytes_be(&words).to_string()
+        U256::from_be_bytes(words.try_into().unwrap()).to_string()
     }
 }
 
@@ -132,7 +131,7 @@ impl Deposit {
 
         let res = poseidon.hash(inputs).unwrap();
 
-        U256::from_bytes_le(&res).to_string()
+        U256::from_le_bytes(res).to_string()
     }
 
     
@@ -142,7 +141,7 @@ impl Deposit {
 
         let nullifier = U256::from_str(&self.nullifier).unwrap();
 
-        let secret = U256::from(1 as u16);
+        let secret = U256::from(1 as u64);
         let leaf_i = U256::from(leaf_index);
 
         let inputs = vec![
@@ -153,7 +152,7 @@ impl Deposit {
 
         let res = poseidon.hash(inputs).unwrap();
 
-        U256::from_bytes_le(&res).to_string()
+        U256::from_le_bytes(res).to_string()
     }
 
     pub fn commitment_as_array(self) -> [u8; 32] {
@@ -185,7 +184,7 @@ fn test_generate_deposit() {
 
 pub fn uint256_to_bytes_le(x: U256) -> [u8; 32] {
     let mut ans = [0u8; 32];
-    let vec = x.to_bytes_le();
+    let vec = x.to_le_bytes();
     for i in 0..vec.len() {
         ans[i] = vec[i];
     }
@@ -206,7 +205,7 @@ fn test_parse_juno_addr() {
         let words: Vec<u8> = payloads.iter().map(|x| x.to_u8()).collect();
         assert_eq!(words.len(), 32);
 
-        let n = U256::from_bytes_be(&words);
+        let n = U256::from_be_bytes(words.try_into().unwrap());
         assert_eq!(
             n.to_string(),
             "9526846490934353717899961266123756195211556155320547954451400665347450669575"
